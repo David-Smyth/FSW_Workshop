@@ -1,0 +1,288 @@
+Flight Software Core
+
+JPL next generation FSW platform product line. MSL refactor.
+
+Re-useable reference architecture, architecture framework, and
+implementations.
+
+Line, instead of project, owns the code.
+
+David McComas at GSFC
+
+Dealing with change Core Flight System is all the software. Apps are CMd
+individually Build system supports patches
+
+CFS is motivated to go to community.
+
+JH/APL
+
+Sounds like there is no adoption of open source
+
+JPL: Line owns a product line.
+
+CM for each project
+
+LM Space: "standard product approach" using product line controlled by a
+central organization.
+
+Customer chooses version.
+
+These people just want a job that is not attached to project budgets and
+schedules.
+
+JPL: Constrain development choices.
+
+LM: Wide trade space for architecture. Mission needs drive architectural
+choices. People move project to project, so re-use is people and code.
+
+People, process, training, build system, etc. That's the source of a lot  of
+re-use.
+
+JH: CFS has lots of stuff. Teach people to use CFS APIs. They can, but they
+should not, make calls around the API by making system calls directly.
+
+CFE delivers unit tests too. Find re-use does not reduce software budget.
+
+Q: Requirements, documentation, and configuration management. How?
+
+JH: Allocate requirements to CFS modules and core.
+
+JPL: Core takes only requirements from line, project takes it. Configuration
+points. No automation for requirement tracking. Core is self contained.
+Project writes requirements within which core exists.
+
+LM: CFS leverage in IRAD, exploring using CFS requirements.
+
+Q: Standard components. How to define and advertise the range of missions,
+operational scenarios, and use cases the architecture supports.
+
+LM: Common services across all missions. Catalog for specific types of
+missions. "Those reference architectures" support different types of missions.
+Project defines what they need.
+
+JPL: Architecture description document, Minimum system requirements, and list
+of core capabilities.
+
+CFS: Don't really have a documented range that we support.
+
+Q: Within core, what resilience to cyber attack? Plans on road map?
+
+CFS command and telemetry I/O are not part of it. Security and key management
+is supported, but not in core.
+
+JPL core does include command and telemetry. Would require change to core. Not
+in baseline.
+
+Coding standards.
+
+Q: Flight protection plan. Core is not a flight project per se. Does core
+address needs of project flight protection plan? E.g., encryption, static code
+analysis, various kinds of checkers that need to be run.
+
+Q: Security, coding standards, practices. Dr David Ward leads MISRA standard.
+JPL uses tailored MISRA. What does everyone use.
+
+JPL: Coding guidelines had huge impact on quality of code. Lots of assertions
+led to reliable code base. Very few FSW bugs over 3 years. We used scrub, a
+collection of static code checkers. Implementation checklist. Peer review of
+every line of hand written code.
+
+LM: Heritage (if it worked must be OK), static code checkers. Also Ada to C
+translation allows code to be examined in great detail.
+
+Q: Scale to little ssytems (cubesat)? Is common core subject to IVV, or just
+what project adds to core?
+
+CFS: IVV has done for project using core, not for core itself separate from a
+project.
+
+JPL: Want to do even bigger projects that can't be done at JPL.
+Interoperability. Space and time components. What is a component. API. Others
+can build a component to meet architecture.
+
+LM: Also see FSW as core competency, so LM core is for internal projects only.
+
+Open source is stil something everyone is grappling with.
+
+Q: Business case for doing common flight software, including contract
+language. Technical problem is one thing, making it work for safety
+certifications is hard.
+
+Open Group definition of common cockpit system.
+
+
+
+Will Marchant, UCB Space Sciences Lab 
+-------------------------------------
+
+ICON End-to-End Operations Philosphy -- how to adhere to test as you fly, fly
+as you test.
+
+Orbital LEOStar-2 bus, a catalog item. But new flight computer.
+
+By using CCSDS for e2e, starts to introduce complexity into development early
+on. Use CCSDS transfer frames as standardized interfaces.
+
+MySQL captures all commands and telemetry throughout phases A-E.
+
+Use git for all CM'd items including test scripts. Gets away from internet
+performance issues that crop up when using SVN.
+
+Tough to finalize commands and telemetry early. These things change.
+
+Dave Oberg at Orbital accepted idea of using someone else's software (ITOS) on
+their bird. Was free or very cheap to UCB, more expensive for commercial
+customer. But UCB provided 2-3 bodies to ensure the software worked on the
+Orbital spacecraft.
+
+All RT transfer is done over CCSDS transfer frames. Plus packets, with
+secondary header containing time tags. Packets go into database. Packet APID
+selects table.
+
+Karen Gundy-Burlet, LADEE 
+-------------------------
+
+Infrastructure and process improvement after LADEE. After project, reformed
+people into core software group.
+
+Ames developed class-B FSW. Also suppprt and simulations, class-C also used in
+I&T and for ops training.
+
+Simulink, autocoded FSW and simulation (separate). Build 4, I&T. Build 5 for
+spacecraft.
+
+Use CFE 5.2, using OSAL and ITOS. Broadreach RAD750 and drivers, VxWorks 6.8,
+Mathworks 2010b.
+
+All the non-CFE code is simulink, autocoded. Well, except some very low level
+hardware specific stuff that was hand coded in C, such as the memory scrubber.
+
+Used all of CFE. Worked great. Made some patches, and a new update, worked
+great.
+
+taskLog in middle of interrupt layer caused one crash.
+
+cFE/OSAL is extensively documented, but seems overyly complex. Need
+experienced  people to use it again (second time better than first).
+
+So putting a group together to support CFE on missions.
+
+Switch to git from SVN. Using Atlassian: Confluence, Jira and Bamboo.
+NPR7150.2  plan templates. Extensive test suite, incorporating original GSFC
+but also JSC  and ARC test cases.
+
+Open sourcing "Simulink Interface Layer for cFE/cFS" but attorneys are causing
+problems.
+
+Git is the way to go for parallel development from different sites. Imposes a
+different workflow and structure of flight software. Now a very flat
+architecture. Each component is git repository.
+
+Use Simulink Report Generator to do reports from telemetry. Were designing test 
+cases long before there was software.
+
+ARC SW Dev Office paid for CMMI2. Was many hundreds of hours.
+
+14 people on software team.
+
+FreeRTOS repository in cFE/cFS. Nice to be able to easily survey what is going 
+on across agency and pull what seems good.
+
+cFE/cFS working group determines what gets shared.
+
+AJ, Intel Edison
+-----------------
+
+All open source software stack on git. Yocto. Arduino compatible. Edison module 
+is $50.
+
+Edison is postage stamp size: 25x35mm. Atom dual core, dual thread, running 
+Linux. 70 pin I/O, 44 GPIOs. 4GB flash, 1GB RAM. WiFi, Bluetooth. BLE (Low 
+Energy Bluetooth).
+
+High level libraries to talk to all the I/O.
+
+Instead of talking to individual pins, instead control a servo or control a 
+camera. Including callbacks. These libraries are accessible from C++ and from 
+Javascript for Node.js.
+
+Scratch? What is that? A language? A test environment?
+
+Applications: Prevent motorcycle from starting unless rider is wearing helmet. 
+
+Large software team spread worldwide. Often 100 people per team.
+
+Embedded products generally last a decade, while non-embedded (higher margin?) 
+is maybe 3 years life.  Embedded and IoT is strategic for company.
+
+
+Jason Stout, Aerospace Corp
+---------------------------
+
+Development of Hands-on Introductory Planetary Defense Tools and Training Course.
+
+Protection from NEOs -- Near Earth Object. More events than we had expected.
+
+1908, 1300 square miles flattened by explosion in atmosphere. If it was 2 hours 
+later, it would have wiped out Moscow.
+
+Deflection mission -- simply slam into object. Must be autonomous at terminal 
+impact. Nuclear option requires precise timing of detenation.
+
+aero.jpl.nasa.gov
+
+
+Meridith Beveridge Lecocke (LeCokie) from SwRI
+----------------------------------------------
+
+Formal modelling for Efficient FDIR, for two fault tolerant avionics.
+
+FMA process, by hand, analyze entire system, all ways each can fail, classify by criticality. Put into some unified system (like a spreadsheet). After 18 months, did not get there.
+
+600+ single faults, 1287 outputs analyzed, 423 critical responses, etc. Beyond human brain.
+
+Formal modeling: specify system and reliability requirements at a high level of abstraction -- identified 30 high level issues. 
+
+ASP: Answer Set Prolog. Describe system components, interactions, states, trasitions, falus, and goals. Then use standard ASP reasoning algorithm to analyze.
+
+Describe system with boolean properties.
+
+
+NASA IV&V
+---------
+
+NOS framework for simulation.
+
+Hand driven hacking to maybe find bugs. Does not address static analysis to
+figure out what the tests should be, therefore this seems fundamentally
+inferior  to LARS.
+
+Ethernet chip used on a lot of missions is modelled. What!?!?!
+
+Continuous integration: Bamboo build server: builds and runs tests. Assist is
+ground system of choice for CFS. Bamboo plug-in tells Bamboo how to build
+(CFS).
+
+Always deploy to virtual machines.
+
+Bamboo coordinates what is going on in several virtual machines to run the
+tests. Maybe takes a night or so to run the test suite.
+
+Model semantics not real-time performance. QEMU is clock master. All model 
+hardware sees time provided by CPU emulator (QEMU).
+
+Simix (by WindRiver) is also good for modeling cards. Its complicated and 
+expensive to do those models.
+
+Boris Lipchin of MIT - SW Centric FT
+------------------------------------
+
+PBFT by Liskov, Turing Awarded for PBFT.
+
+All xmit proposed new state message to peers. Peers then decide if its acceptable, and send the accept message to peers. So when a node sees enough accept messages, go ahead.
+
+
+
+
+
+

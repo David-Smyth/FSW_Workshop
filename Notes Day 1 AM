@@ -1,0 +1,96 @@
+Gerard Holzman, JPL
+-------------------
+
+Messages, evrs, eha are observables in old arch.
+Busses are observables in simulink.
+
+
+Robert Klarr, SwRI
+-------------------
+
+Leon3 Sparc8 
+Dual core, but ran single core at 25 MHz to make software simpler.
+
+Flight Core, a message passing pub-sub. SwRI and CSDraper developed before CFE
+was available via sourceforge. Have used for past few missions. Similar to CFE, 
+but not CFE based.
+
+SwRI - CDH on Core
+CSDraper Labs Houston -- ACS on Core
+Delay Doppler Maps for surface (wave) characterization
+CFDP blows, ground system integration nightmare even with experience
+
+Compression: Get useful information from instrument data generation, which the
+scientists could identify how to get the 2% (50:1) that is information from
+the data.
+
+1. Find the interesting features, and subframe to there.
+2. Then get rid of noise floor to increase data entropy.
+3. Then compress using stupid compressors.
+
+
+Lorraine Fesq, JPL
+-------------------
+
+Developing NASA Fault Management Guidebook for Deep Space Robotic
+Misions. There is a guidebook that Lorraine presented before.
+
+Some implemented in SW, some in hardware. Cassini, 50% of FSW was involved in
+fault management.
+
+Looking backward: how has NASA done it before, keep doing it that way. Who
+needs innovation.
+
+Testing FM is tough, takes forever. Seems to be a pervasive problem.
+
+4/9/12 Draft 2 is still most recent release.
+
+Comments were contridictory, so many comments cannot be dispositioned. Its a
+diverse field.
+
+Instead of trying to identify one approach, maybe "within each community" we
+can attack the problem and define how to approach FM, so each community gets a
+chapter, everyone can understand how other communities do it.
+
+So now: Deep Space Robotic -- focus on one community, one type of mission.
+Still, there is no guidebook. Used architectures and designs from past
+missions.
+
+APL, SAE, IEEE, and Aerospace are all developing guidelines, most have
+versions released in the last decade or so.
+
+Wow, is this ever focusing on non-flight artifacts! Bummer...
+
+Put it in PowerPoint, then move it to the web and do everything there.
+
+Tension with lean-ness.
+
+People quoting my statement "Planning extinguishes innovation."
+
+Training struggle. PowerPoint is just a starting point for training, need
+something that people can use and experiment with in order to truly
+internalize learning.
+
+
+Fellice Torelli, ESA, Italian Space Agency
+------------------------------------------
+
+CCSDS spacecraft onboard interface surfaces (SOIS) and electronic data sheets
+
+DAS - Device Access Services
+DVS - Device Virtualization Service
+DDPS - Device Data Pooling Service
+TAS - Time Access Service
+MTS - Message Transfer Servcice
+FPSS - File and Packet Storage Service
+DDS - Device Discovery Service, originally a plug-n-play service
+Packet Service, Memory Access Service, and Synchronization Service.
+
+SOIS Electronic Data Sheets
+
+Formalized description of hardware instead of just write a bunch of code and spreadsheets. 
+
+EDS (electronic data sheets) is a series of books using XML schema.
+
+Byte ordering described in EDS, but handing this is up to the code slinger. 
+Device access service does no data transforms.
